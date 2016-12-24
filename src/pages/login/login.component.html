@@ -1,0 +1,56 @@
+<div class="row login-container">
+    <ngb-tabset #t="ngbTabset" class="col-xs-12 col-sm-6 offset-sm-3">
+        <ngb-tab title="Sign in">
+            <template ngbTabContent>
+                <div class="mt-1">
+                    <form>
+                        <div class="form-group row">
+                            <label for="email" class="col-sm-2 col-form-label">E-mail</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control" id="email" placeholder="email@domain.com" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="password" class="col-sm-2 col-form-label">Password</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" id="password" placeholder="********" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="offset-sm-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary">Sign in</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </template>
+        </ngb-tab>
+        <ngb-tab title="Sign up">
+            <template ngbTabContent>
+                <div class="mt-1">
+                    <form>
+                        <div class="form-group row">
+                            <label for="email" class="col-sm-2 col-form-label">E-mail</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control" id="email" placeholder="email@domain.com" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="password" class="col-sm-2 col-form-label">Password</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" id="password" placeholder="********" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="offset-sm-2 col-sm-10">
+                                <button type="submit" class="btn btn-success">Sign up</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </template>
+        </ngb-tab>
+        <ngb-tab title="Angular 2 CMS" [disabled]="true">
+        </ngb-tab>
+    </ngb-tabset>
+</div>
