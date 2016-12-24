@@ -1,5 +1,5 @@
 import { Component, Injectable } from '@angular/core';
-import { Http, Response, Headers } from '@angular/http';
+import { Http, Response, Headers, URLSearchParams, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 import { ConfigurationService } from '../../services/configuration.service';
@@ -14,6 +14,7 @@ export class LoginComponent {
 
     constructor(private http: Http, private config: ConfigurationService) { }
 
+    email: string;
     /*
     ** Login function for sending request to backend for validation
     */
@@ -21,9 +22,11 @@ export class LoginComponent {
         // Let's create headers
         let headers = new Headers();
         headers.append("Content-Type", "application/json");
-
+        let options = new RequestOptions({
+            headers: headers
+        });
         // Send request to back-end
-        this.http.get(this.config.getBaseUrl() + '/login', { headers: headers })
+        this.http.post(this.config.getBaseUrl() + '/api/login', JSON.stringify({ email: this.email }), options)
             .subscribe(
                 data => console.log(data),
                 err => console.log(err),
