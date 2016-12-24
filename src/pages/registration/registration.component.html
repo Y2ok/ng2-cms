@@ -1,0 +1,69 @@
+<div class="row login-container">
+    <ngb-tabset #t="ngbTabset" class="col-xs-12 col-sm-6 offset-sm-3">
+        <ngb-tab title="Registration">
+            <template ngbTabContent>
+                <div class="mt-1">
+                    <form (ngSubmit)="onRegister()" #register="ngForm">
+                        <div class="form-group row">
+                            <label for="email" class="col-sm-2 col-form-label">E-mail</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control" [(ngModel)]="email" name="email" id="email" placeholder="email@domain.com"
+                                    required />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="password" class="col-sm-2 col-form-label">Password</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" [(ngModel)]="password" name="password" id="password" placeholder="*******"
+                                    required />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="passwordRepeat" class="col-sm-2 col-form-label">Password (repeat)</label>
+                            <div class="col-sm-10">
+                                <input type="passwordRepeat" class="form-control" [(ngModel)]="passwordRepeat" name="passwordRepeat" id="passwordRepeat" placeholder="*******"
+                                    required />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="name" class="col-sm-2 col-form-label">Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" [(ngModel)]="name" name="name" id="name" placeholder="John"
+                                    required />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="surname" class="col-sm-2 col-form-label">Surame</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" [(ngModel)]="surname" name="surname" id="surname" placeholder="Freeman"
+                                    required />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="age" class="col-sm-2 col-form-label">Age</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" [(ngModel)]="age" name="age" id="age" placeholder="21"
+                                    required />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="gender" class="col-sm-2 col-form-label">Gender</label>
+                            <div class="col-sm-10">
+                                <input type="gender" class="form-control" [(ngModel)]="gender" name="gender" id="gender" placeholder="Male"
+                                    required />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="offset-sm-2 col-sm-10">
+                                <button type="submit" class="btn btn-success" [disabled]="!register.form.valid">Sign up</button>
+                                <a href="/" class="btn btn-default">Back</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </template>
+        </ngb-tab>
+        <ngb-tab title="Angular 2 CMS" [disabled]="true">
+        </ngb-tab>
+    </ngb-tabset>
+</div>

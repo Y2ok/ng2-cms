@@ -12,6 +12,7 @@ import { AppComponent } from './components/app/app.component';
 
 /* Page Imports */
 import { LoginComponent } from './pages/login/login.component';
+import { RegistrationComponent } from './pages/registration/registration.component';
 
 /* Service Imports */
 import { ConfigurationService } from './services/configuration.service'; 
@@ -29,7 +30,8 @@ import { ConfigurationService } from './services/configuration.service';
     ],
     declarations: [
         AppComponent,
-        LoginComponent
+        LoginComponent,
+        RegistrationComponent
     ],
     bootstrap: [
         AppComponent
