@@ -2,7 +2,6 @@ var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-
     entry: './src/main.ts',
     output: {
         path: './dist',
@@ -10,7 +9,18 @@ module.exports = {
     },
     module: {
         loaders: [
-            { test: /\.ts$/, loader: 'ts' }
+            {
+                test: /\.ts?$/,
+                loaders: ['ts-loader', 'angular2-template-loader']
+            },
+            {
+                test: /\.(html)?$/,
+                loaders: ['raw-loader']
+            },
+            {
+                test: /\.(css)?$/,
+                loaders: ['raw-loader']
+            }
         ]
     },
     resolve: {
