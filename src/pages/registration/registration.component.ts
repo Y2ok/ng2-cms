@@ -140,7 +140,7 @@ export class RegistrationComponent {
     /*
     ** Validate returned data form the back-end
     */
-    validateReturnData(data: any): any {
+    validateReturnData(data: any) {
         var returnedData = data.json();
         // Check if returned data has back-end validation errors, if so - then show error messages
         if (returnedData.status == 'errors') {

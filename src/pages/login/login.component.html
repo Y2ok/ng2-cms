@@ -4,16 +4,29 @@
             <template ngbTabContent>
                 <div class="mt-1">
                     <form (ngSubmit)="onLogin()" #login="ngForm">
-                        <div class="form-group row">
-                            <label for="email" class="col-sm-2 col-form-label">E-mail</label>
-                            <div class="col-sm-10">
-                                <input type="email" class="form-control" [(ngModel)]="email" name="email" id="email" placeholder="email@domain.com" required />
+                        <div class="has-danger" *ngIf="hasError('generalError')">
+                            <div class="errors">
+                                <div class="form-control-feedback" *ngFor="let errorMessage of errorMessages | errors : 'param' : 'generalError'">{{errorMessage.msg}}</div>
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group row" [ngClass]="{ 'has-danger': hasError('email') }">
+                            <label for="email" class="col-sm-2 col-form-label">E-mail</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control" [ngClass]="{ 'form-control-danger': hasError('email') }" [(ngModel)]="email" name="email"
+                                    id="email" placeholder="email@domain.com" required />
+                            </div>
+                            <div class="errors">
+                                <div class="form-control-feedback" *ngFor="let errorMessage of errorMessages | errors : 'param' : 'email'">{{errorMessage.msg}}</div>
+                            </div>
+                        </div>
+                        <div class="form-group row" [ngClass]="{ 'has-danger': hasError('password') }">
                             <label for="password" class="col-sm-2 col-form-label">Password</label>
                             <div class="col-sm-10">
-                                <input type="password" class="form-control" [(ngModel)]="password" name="password" id="password" placeholder="********" required />
+                                <input type="password" class="form-control" [ngClass]="{ 'form-control-danger': hasError('password') }" [(ngModel)]="password"
+                                    name="password" id="password" placeholder="********" required />
+                            </div>
+                            <div class="errors">
+                                <div class="form-control-feedback" *ngFor="let errorMessage of errorMessages | errors : 'param' : 'password'">{{errorMessage.msg}}</div>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -32,7 +45,8 @@
                         <div class="form-group row">
                             <label for="regEmail" class="col-sm-2 col-form-label">E-mail</label>
                             <div class="col-sm-10">
-                                <input type="email" class="form-control" [(ngModel)]="regEmail" name="regEmail" id="regEmail" placeholder="email@domain.com" required />
+                                <input type="email" class="form-control" [(ngModel)]="regEmail" name="regEmail" id="regEmail" placeholder="email@domain.com"
+                                    required />
                             </div>
                         </div>
                         <div class="form-group row">
