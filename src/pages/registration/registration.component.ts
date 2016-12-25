@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ConfigurationService } from '../../services/configuration.service';
+import { ValidatorService } from '../../services/validator.service';
 
 @Injectable()
 @Component({
@@ -12,7 +13,7 @@ import { ConfigurationService } from '../../services/configuration.service';
 })
 
 export class RegistrationComponent {
-    constructor(private route: ActivatedRoute, private http: Http, private config: ConfigurationService) { }
+    constructor(private route: ActivatedRoute, private http: Http, private config: ConfigurationService, private validator: ValidatorService) { }
 
     sub: any;
     email: string;
@@ -22,8 +23,6 @@ export class RegistrationComponent {
     surname: string;
     age: number;
     gender: string;
-    error: boolean;
-    emailConst: string = 'email';
     errorMessages: any[] = [];
 
     /*
@@ -52,16 +51,71 @@ export class RegistrationComponent {
             headers: headers
         });
 
-        if(this.password != this.passwordRepeat) {
-            this.error = true;
-        }
+        // Validate fields
+        this.validateFields();
 
         // Send request to back-end
-        if(!this.error) {
+        if(this.errorMessages.length == 0) {
             this.http.post(this.config.getBaseUrl() + '/api/auth/register', JSON.stringify({ email: this.email, password: this.password, name: this.name, surname: this.surname, age: this.age, gender: this.gender }), options)
                 .subscribe(
                     data => this.validateReturnData(data)
                 );        
+        }
+    }
+
+    /*
+    ** Validate front-end fields
+    */
+    validateFields() {
+        // Validate e-mail
+        if (this.validator.isEmpty(this.email)) {
+            this.errorMessages.push({ param: 'email', msg: 'E-mail cannot be empty!' });
+        }
+        if (!this.validator.isEmail(this.email)) {
+            this.errorMessages.push({ param: 'email', msg: 'Email must contain a valid e-mail!'})
+        }
+
+        // Validate password
+        if (this.validator.isEmpty(this.password)) {
+            this.errorMessages.push({ param: 'password', msg: 'Password cannot be empty!' });
+        }
+        if (!this.validator.minLength(this.password, 6)) {
+            this.errorMessages.push({ param: 'password', msg: 'Password must be at least 6 characters long!' });
+        }
+        if (!this.validator.maxLength(this.password, 30)) {
+            this.errorMessages.push({ param: 'password', msg: 'Password must be less than 30 characters long!' });
+        }
+
+        // Validate password repeat
+        if (!this.validator.isEqual(this.password, this.passwordRepeat)) {
+            this.errorMessages.push({ param: 'passwordRepeat', msg: 'Password (repeat) must be equal to password!' });
+        }
+
+        // Validate name
+        if (!this.validator.isAlpha(this.name)) {
+            this.errorMessages.push({ param: 'name', msg: 'Name field must contain only letters!' });
+        }
+        if (!this.validator.minLength(this.name, 1)) {
+            this.errorMessages.push({ param: 'name', msg: 'Name must be at least 1 character long!' });
+        }
+        if (!this.validator.maxLength(this.name, 30)) {
+            this.errorMessages.push({ param: 'name', msg: 'Name must be less than 30 characters long!' });
+        }
+
+        // Validate surname
+        if (!this.validator.isAlpha(this.surname)) {
+            this.errorMessages.push({ param: 'surname', msg: 'Surname field must contain only letters!' });
+        }
+        if (!this.validator.minLength(this.surname, 1)) {
+            this.errorMessages.push({ param: 'surname', msg: 'Surname must be at least 1 character long!' });
+        }
+        if (!this.validator.maxLength(this.surname, 30)) {
+            this.errorMessages.push({ param: 'surname', msg: 'Surname must be less than 30 characters long!' });
+        }        
+
+        // Validate age
+        if (!this.validator.intInRange(this.age, 0, 120)) {
+            this.errorMessages.push({ param: 'age', msg: 'Age must be a number between 0 and 120!' })
         }
     }
 
@@ -78,6 +132,9 @@ export class RegistrationComponent {
         return false;
     }
 
+    /*
+    ** Validate returned data form the back-end
+    */
     validateReturnData(data: any): any {
         var returnedData = data.json();
         if(returnedData.status == 'errors') {
@@ -85,7 +142,7 @@ export class RegistrationComponent {
                 this.errorMessages.push(returnedData.errors[currErr]);
             }
         } else {
-
+            // Show success message and navigate to login
         }
     }
 

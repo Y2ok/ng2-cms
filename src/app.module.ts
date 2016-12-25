@@ -16,13 +16,15 @@ import { RegistrationComponent } from './pages/registration/registration.compone
 
 /* Service Imports */
 import { ConfigurationService } from './services/configuration.service'; 
+import { ValidatorService } from './services/validator.service';
 
 /* Pipe imports */
 import { ErrorPipe } from './pipes/error.pipe';
 
 @NgModule({
     providers: [
-        ConfigurationService
+        ConfigurationService,
+        ValidatorService
     ],
     imports: [
         BrowserModule,
