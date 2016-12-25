@@ -15,7 +15,7 @@ export class ValidatorService {
     */
     isEmail(value: string): boolean {
         let EMAIL_REGEXP = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
-        
+
         if (EMAIL_REGEXP.test(value)) {
             return true
         } else {
@@ -66,7 +66,7 @@ export class ValidatorService {
             return false;
         }
     }
-    
+
     /*
     ** Check if value contains only letters
     */

@@ -1,7 +1,10 @@
-import { Component, Injectable } from '@angular/core';
+import { Component, ViewChild, Injectable } from '@angular/core';
 import { Http, Response, Headers, URLSearchParams, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute, Router } from '@angular/router';
+
+
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { ConfigurationService } from '../../services/configuration.service';
 import { ValidatorService } from '../../services/validator.service';
@@ -13,7 +16,9 @@ import { ValidatorService } from '../../services/validator.service';
 })
 
 export class RegistrationComponent {
-    constructor(private route: ActivatedRoute, private http: Http, private config: ConfigurationService, private validator: ValidatorService) { }
+    @ViewChild('content') content: string;
+
+    constructor(private route: ActivatedRoute, private router: Router, private http: Http, private config: ConfigurationService, private validator: ValidatorService, private modalService: NgbModal) { }
 
     sub: any;
     email: string;
@@ -55,11 +60,11 @@ export class RegistrationComponent {
         this.validateFields();
 
         // Send request to back-end
-        if(this.errorMessages.length == 0) {
+        if (this.errorMessages.length == 0) {
             this.http.post(this.config.getBaseUrl() + '/api/auth/register', JSON.stringify({ email: this.email, password: this.password, name: this.name, surname: this.surname, age: this.age, gender: this.gender }), options)
                 .subscribe(
-                    data => this.validateReturnData(data)
-                );        
+                data => this.validateReturnData(data)
+                );
         }
     }
 
@@ -72,7 +77,7 @@ export class RegistrationComponent {
             this.errorMessages.push({ param: 'email', msg: 'E-mail cannot be empty!' });
         }
         if (!this.validator.isEmail(this.email)) {
-            this.errorMessages.push({ param: 'email', msg: 'Email must contain a valid e-mail!'})
+            this.errorMessages.push({ param: 'email', msg: 'Email must contain a valid e-mail!' })
         }
 
         // Validate password
@@ -111,7 +116,7 @@ export class RegistrationComponent {
         }
         if (!this.validator.maxLength(this.surname, 30)) {
             this.errorMessages.push({ param: 'surname', msg: 'Surname must be less than 30 characters long!' });
-        }        
+        }
 
         // Validate age
         if (!this.validator.intInRange(this.age, 0, 120)) {
@@ -137,12 +142,18 @@ export class RegistrationComponent {
     */
     validateReturnData(data: any): any {
         var returnedData = data.json();
-        if(returnedData.status == 'errors') {
+        // Check if returned data has back-end validation errors, if so - then show error messages
+        if (returnedData.status == 'errors') {
             for (let currErr = 0; currErr < returnedData.errors.length; currErr++) {
                 this.errorMessages.push(returnedData.errors[currErr]);
             }
         } else {
-            // Show success message and navigate to login
+            // No errors - let's show modal popup and navigate to login page
+            this.modalService.open(this.content).result.then(() => {
+                this.router.navigate(['/']);
+            }, () => {
+                this.router.navigate(['/']);
+            });
         }
     }
 
