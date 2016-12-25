@@ -17,6 +17,9 @@ import { RegistrationComponent } from './pages/registration/registration.compone
 /* Service Imports */
 import { ConfigurationService } from './services/configuration.service'; 
 
+/* Pipe imports */
+import { ErrorPipe } from './pipes/error.pipe';
+
 @NgModule({
     providers: [
         ConfigurationService
@@ -31,7 +34,8 @@ import { ConfigurationService } from './services/configuration.service';
     declarations: [
         AppComponent,
         LoginComponent,
-        RegistrationComponent
+        RegistrationComponent,
+        ErrorPipe
     ],
     bootstrap: [
         AppComponent

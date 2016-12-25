@@ -30,7 +30,7 @@ export class LoginComponent {
             headers: headers
         });
         // Send request to back-end
-        this.http.post(this.config.getBaseUrl() + '/api/login', JSON.stringify({ email: this.email, password: this.password }), options)
+        this.http.post(this.config.getBaseUrl() + '/api/auth/login', JSON.stringify({ email: this.email, password: this.password }), options)
             .subscribe(
                 data => console.log(data),
                 err => console.log(err),
