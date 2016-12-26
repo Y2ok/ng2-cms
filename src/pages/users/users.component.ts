@@ -25,6 +25,13 @@ export class UsersComponent {
         }
 
         // Retrieve users
+        this.retrieveUsers();
+    }
+
+    /*
+    ** Retrieves users from database
+    */
+    retrieveUsers() {
         this.http.get(this.config.getBaseUrl() + '/api/users/getUsers')
             .subscribe(
             data => this.setUsers(data)
@@ -36,6 +43,7 @@ export class UsersComponent {
     */
     setUsers(data: any) {
         let returnedData = data.json();
+
         this.users = returnedData.users;
     }
 
@@ -43,7 +51,23 @@ export class UsersComponent {
     ** Delete a user with specific user id
     */
     deleteUser(userId: number) {
+        this.http.delete(this.config.getBaseUrl() + '/api/users/deleteUser/' + userId)
+            .subscribe(
+            data => this.updateUserTable(data, userId)
+            );
+    }
 
+    /*
+    ** Update user table after delete
+    */
+    updateUserTable(data: any, userId: number) {
+        if (data.json().status == 'success') {
+            let userIndex = this.users.indexOf(userId, 0);
+
+            if (userIndex > -1) {
+                this.users.splice(userIndex, 1);
+            }
+        }
     }
 
 }
