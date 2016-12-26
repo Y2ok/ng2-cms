@@ -6,7 +6,7 @@ import { RegistrationComponent } from './pages/registration/registration.compone
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { UsersComponent } from './pages/users/users.component'; 
 import { EditUserComponent } from './pages/editUser/editUser.component';
-import { AddUserComponent } from './pages/newUser/newUser.component';
+import { AddUserComponent } from './pages/addUser/addUser.component';
 
 export const routes: Routes = [
   {

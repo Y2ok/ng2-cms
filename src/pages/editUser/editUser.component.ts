@@ -13,4 +13,14 @@ export class EditUserComponent {
 
     constructor(private router: Router, private http: Http, private config: ConfigurationService) { }
 
+    /*
+    ** On Init function, which makes sure that all required prerequisites are done
+    */
+    ngOnInit() {
+        // If not logged in, let's move to
+        if (localStorage.getItem('logged_in') != true.toString()) {
+            this.router.navigate(['/']);
+        }
+    }
+
 }

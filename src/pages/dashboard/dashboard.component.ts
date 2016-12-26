@@ -21,7 +21,6 @@ export class DashboardComponent {
         if (localStorage.getItem('logged_in') != true.toString()) {
             this.router.navigate(['/']);
         }
-
     }
 
 }

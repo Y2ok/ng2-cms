@@ -17,7 +17,7 @@ import { RegistrationComponent } from './pages/registration/registration.compone
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { UsersComponent } from './pages/users/users.component';
 import { EditUserComponent } from './pages/editUser/editUser.component';
-import { AddUserComponent } from './pages/newUser/newUser.component';
+import { AddUserComponent } from './pages/addUser/addUser.component';
 
 /* Service Imports */
 import { ConfigurationService } from './services/configuration.service'; 
