@@ -16,6 +16,8 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegistrationComponent } from './pages/registration/registration.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { UsersComponent } from './pages/users/users.component';
+import { EditUserComponent } from './pages/editUser/editUser.component';
+import { AddUserComponent } from './pages/newUser/newUser.component';
 
 /* Service Imports */
 import { ConfigurationService } from './services/configuration.service'; 
@@ -43,6 +45,8 @@ import { ErrorPipe } from './pipes/error.pipe';
         RegistrationComponent,
         DashboardComponent,
         UsersComponent,
+        EditUserComponent,
+        AddUserComponent,
         ErrorPipe
     ],
     bootstrap: [

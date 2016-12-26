@@ -13,6 +13,8 @@ export class UsersComponent {
 
     constructor(private router: Router, private http: Http, private config: ConfigurationService) { }
 
+    users: any;
+
     /*
     ** On Init function, which makes sure that all required prerequisites are done
     */
@@ -21,6 +23,26 @@ export class UsersComponent {
         if (localStorage.getItem('logged_in') != true.toString()) {
             this.router.navigate(['/']);
         }
+
+        // Retrieve users
+        this.http.get(this.config.getBaseUrl() + '/api/users/getUsers')
+            .subscribe(
+            data => this.setUsers(data)
+            );
+    }
+
+    /*
+    ** Set retrieved users to parameter for displaying in UI
+    */
+    setUsers(data: any) {
+        let returnedData = data.json();
+        this.users = returnedData.users;
+    }
+
+    /*
+    ** Delete a user with specific user id
+    */
+    deleteUser(userId: number) {
 
     }
 
