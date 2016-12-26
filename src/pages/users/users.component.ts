@@ -6,10 +6,10 @@ import { ConfigurationService } from '../../services/configuration.service';
 
 @Injectable()
 @Component({
-    templateUrl: './dashboard.component.html'
+    templateUrl: './users.component.html'
 })
 
-export class DashboardComponent {
+export class UsersComponent {
 
     constructor(private router: Router, private http: Http, private config: ConfigurationService) { }
 

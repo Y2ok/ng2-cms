@@ -36,7 +36,7 @@ export class RegistrationComponent {
     ngOnInit() {
         // If logged in, let's move to dashboard
         if (localStorage.getItem('logged_in') == true.toString()) {
-            this.router.navigate(['/home']);
+            this.router.navigate(['/home/dashboard']);
         }
 
         // Pass data to registration page

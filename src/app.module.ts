@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 /* Other Service imports */
 import { routing } from './app.routes';
@@ -16,6 +15,7 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { LoginComponent } from './pages/login/login.component';
 import { RegistrationComponent } from './pages/registration/registration.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { UsersComponent } from './pages/users/users.component';
 
 /* Service Imports */
 import { ConfigurationService } from './services/configuration.service'; 
@@ -34,8 +34,7 @@ import { ErrorPipe } from './pipes/error.pipe';
         routing,
         NgbModule.forRoot(),
         FormsModule,
-        HttpModule,
-        ChartsModule
+        HttpModule
     ],
     declarations: [
         AppComponent,
@@ -43,6 +42,7 @@ import { ErrorPipe } from './pipes/error.pipe';
         LoginComponent,
         RegistrationComponent,
         DashboardComponent,
+        UsersComponent,
         ErrorPipe
     ],
     bootstrap: [

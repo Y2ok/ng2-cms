@@ -27,7 +27,7 @@ export class LoginComponent {
     ngOnInit() {
         // If logged in, let's move to dashboard
         if (localStorage.getItem('logged_in') == true.toString()) {
-            this.router.navigate(['/home']);
+            this.router.navigate(['/home/dashboard']);
         }
     }
 
@@ -70,7 +70,7 @@ export class LoginComponent {
         } else {
             // Update local storage information
             localStorage.setItem('logged_in', true.toString());
-            this.router.navigate(['/home']);
+            this.router.navigate(['/home/dashboard']);
         }
     }
 
