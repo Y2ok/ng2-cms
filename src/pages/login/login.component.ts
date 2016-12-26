@@ -22,6 +22,16 @@ export class LoginComponent {
     errorMessages: any[] = [];
 
     /*
+    ** On Init function, which makes sure that all required prerequisites are done
+    */
+    ngOnInit() {
+        // If logged in, let's move to dashboard
+        if (localStorage.getItem('logged_in') == true.toString()) {
+            this.router.navigate(['/home']);
+        }
+    }
+
+    /*
     ** Login function for sending request to backend for validation
     */
     onLogin(): any {
@@ -58,7 +68,9 @@ export class LoginComponent {
             // Show error message
             this.errorMessages.push(returnedData.message);
         } else {
-            // No errors
+            // Update local storage information
+            localStorage.setItem('logged_in', true.toString());
+            this.router.navigate(['/home']);
         }
     }
 

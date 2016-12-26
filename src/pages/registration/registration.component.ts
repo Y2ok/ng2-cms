@@ -34,6 +34,11 @@ export class RegistrationComponent {
     ** On Init function, which makes sure that all required prerequisites are done
     */
     ngOnInit() {
+        // If logged in, let's move to dashboard
+        if (localStorage.getItem('logged_in') == true.toString()) {
+            this.router.navigate(['/home']);
+        }
+
         // Pass data to registration page
         this.sub = this.route
             .queryParams
@@ -61,7 +66,19 @@ export class RegistrationComponent {
 
         // Send request to back-end
         if (this.errorMessages.length == 0) {
-            this.http.post(this.config.getBaseUrl() + '/api/auth/register', JSON.stringify({ email: this.email, password: this.password, name: this.name, surname: this.surname, birthday: new Date(this.birthday), gender: this.gender }), options)
+            // Create user data
+            let userData = { 
+                email: this.email, 
+                password: this.password, 
+                name: this.name, 
+                surname: this.surname, 
+                birthday: new Date(this.birthday), 
+                creationDate: new Date(), 
+                gender: this.gender 
+            };
+
+            // Send POST request and try to register user
+            this.http.post(this.config.getBaseUrl() + '/api/auth/register', JSON.stringify(userData), options)
                 .subscribe(
                 data => this.validateReturnData(data)
                 );
@@ -120,7 +137,7 @@ export class RegistrationComponent {
 
         // Validate birthday
         if (!this.validator.isDateBefore(new Date(this.birthday), new Date())) {
-            this.errorMessages.push({ param: 'birthday', msg: 'Date must be in the past!'});
+            this.errorMessages.push({ param: 'birthday', msg: 'Date must be in the past!' });
         }
         if (!this.validator.isDateAfter(new Date(this.birthday), new Date("01.01.1900"))) {
             this.errorMessages.push({ param: 'birthday', msg: 'Date must be entered after 1900.01.01' });
