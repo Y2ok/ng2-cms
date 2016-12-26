@@ -3,7 +3,7 @@ export class ValidatorService {
     ** Check if stirng value is empty
     */
     isEmpty(value: string): boolean {
-        if (value == "") {
+        if (value == "" || value == undefined) {
             return true;
         } else {
             return false;
@@ -74,6 +74,28 @@ export class ValidatorService {
         let ALPHA_REGEXP = /^[a-z]+$/i
 
         if (ALPHA_REGEXP.test(value)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /*
+    ** Check if date is before a given date
+    */
+    isDateBefore(value: Date, before: Date): boolean {
+        if (value.getTime() - before.getTime() < 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /*
+    ** Check if date is after a given date
+    */
+    isDateAfter(value: Date, after: Date): boolean {
+        if (value.getTime() - after.getTime() > 0) {
             return true;
         } else {
             return false;

@@ -26,7 +26,7 @@ export class RegistrationComponent {
     passwordRepeat: string;
     name: string;
     surname: string;
-    age: number;
+    birthday: Date;
     gender: string;
     errorMessages: any[] = [];
 
@@ -61,7 +61,7 @@ export class RegistrationComponent {
 
         // Send request to back-end
         if (this.errorMessages.length == 0) {
-            this.http.post(this.config.getBaseUrl() + '/api/auth/register', JSON.stringify({ email: this.email, password: this.password, name: this.name, surname: this.surname, age: this.age, gender: this.gender }), options)
+            this.http.post(this.config.getBaseUrl() + '/api/auth/register', JSON.stringify({ email: this.email, password: this.password, name: this.name, surname: this.surname, birthday: new Date(this.birthday), gender: this.gender }), options)
                 .subscribe(
                 data => this.validateReturnData(data)
                 );
@@ -118,9 +118,17 @@ export class RegistrationComponent {
             this.errorMessages.push({ param: 'surname', msg: 'Surname must be less than 30 characters long!' });
         }
 
-        // Validate age
-        if (!this.validator.intInRange(this.age, 0, 120)) {
-            this.errorMessages.push({ param: 'age', msg: 'Age must be a number between 0 and 120!' })
+        // Validate birthday
+        if (!this.validator.isDateBefore(new Date(this.birthday), new Date())) {
+            this.errorMessages.push({ param: 'birthday', msg: 'Date must be in the past!'});
+        }
+        if (!this.validator.isDateAfter(new Date(this.birthday), new Date("01.01.1900"))) {
+            this.errorMessages.push({ param: 'birthday', msg: 'Date must be entered after 1900.01.01' });
+        }
+
+        // Validate gender
+        if (this.validator.isEmpty(this.gender)) {
+            this.errorMessages.push({ param: 'gender', msg: 'Please select a gender!' });
         }
     }
 

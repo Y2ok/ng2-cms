@@ -56,7 +56,7 @@ export class LoginComponent {
         // Check if contains errors, if so, then show error message
         if (returnedData.status == 'error') {
             // Show error message
-            this.errorMessages.push({ param: 'generalError', msg: returnedData.message });
+            this.errorMessages.push(returnedData.message);
         } else {
             // No errors
         }
